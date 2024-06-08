@@ -53,9 +53,9 @@
                         <Cursor fx:constant="HAND" />
                     </cursor>
                 </ImageView>
-                <Button layoutX="211.0" layoutY="290.0" mnemonicParsing="false" prefHeight="29.0" prefWidth="113.0" styleClass="Button" text="Forget password?" textFill="#eeeeee">
+                <Button layoutX="211.0" layoutY="290.0" mnemonicParsing="false" prefHeight="29.0" prefWidth="113.0" styleClass="Button" text="Forget password?" textFill="#8f7d7d">
                     <font>
-                        <Font name="Comic Sans MS" size="11.0" />
+                        <Font name="Arial" size="11.0" />
                     </font>
                     <padding>
                         <Insets bottom="10.0" top="-8.0" />
@@ -84,7 +84,7 @@
                 </ImageView>
                 <Button fx:id="login_button" disable="true" layoutX="26.0" layoutY="340.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="286.0" styleClass="login" text="Login">
                     <font>
-                        <Font name="Book Antiqua Bold" size="14.0" />
+                        <Font name="Arial Bold" size="18.0" />
                     </font>
                     <cursor>
                         <Cursor fx:constant="HAND" />

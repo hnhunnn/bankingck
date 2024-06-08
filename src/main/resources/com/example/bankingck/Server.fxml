@@ -17,7 +17,7 @@
     <children>
         <AnchorPane opacity="0.8" prefHeight="473.0" prefWidth="576.0" style="-fx-background-color: #F9F7F7;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
-                <AnchorPane layoutX="16.0" layoutY="37.0" prefHeight="165.0" prefWidth="545.0" style="-fx-background-color: #DBE2EF; -fx-border-radius: 5px; -fx-background-radius: 5px;">
+                <AnchorPane layoutX="16.0" layoutY="37.0" prefHeight="165.0" prefWidth="545.0" style="-fx-background-color: #E69DA9; -fx-border-radius: 5px; -fx-background-radius: 5px;">
                     <children>
                         <AnchorPane layoutX="249.0" layoutY="17.0" prefHeight="131.0" prefWidth="276.0" style="-fx-background-color: #FEC7C0; -fx-background-radius: 10px;">
                             <children>

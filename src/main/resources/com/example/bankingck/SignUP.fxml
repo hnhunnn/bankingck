@@ -82,7 +82,7 @@
                 <Image url="@../../../Picture/eye.png" />
             </image>
         </ImageView>
-        <Button fx:id="signUp_button" disable="true" layoutX="24.0" layoutY="404.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="293.0" text="Sign up" textFill="RED">
+        <Button fx:id="signUp_button" disable="true" layoutX="24.0" layoutY="404.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="293.0" text="Sign up" textFill="#690404">
             <font>
                 <Font name="Arial Bold" size="14.0" />
             </font>
