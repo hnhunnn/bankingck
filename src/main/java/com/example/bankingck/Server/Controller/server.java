@@ -1,9 +1,8 @@
 package com.example.bankingck.Server.Controller;
 
-
 import javafx.stage.Stage;
-//import com.example.bankingck.Server.Controller.ServerController;
-//import com.example.bankingck.Model.Request;
+import com.example.bankingck.Server.Controller.ServerController;
+import com.example.bankingck.Model.Request;
 
 import java.io.*;
 import java.net.ServerSocket;
@@ -13,6 +12,7 @@ public class server {
     private ServerSocket serverSocket;
     private ServerController serverController;
     public boolean isStop = false;
+    private boolean running;
 
     public server(int port, ServerController serverController) {
         try {
@@ -25,6 +25,15 @@ public class server {
             e.printStackTrace();
         }
     }
+
+    public boolean isRunning() {
+        return running;
+    }
+
+    public void setRunning(boolean running) {
+        this.running = running;
+    }
+
 
     public class WaitForConnect extends Thread {
         @Override
@@ -51,34 +60,34 @@ public class server {
         serverSocket.close();
     }
     public void Read_Request_Of_Client(Socket socket) {
-//        try{
-//            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-//            String readLine = bufferedReader.readLine();
-//            ServerThread serverThread = new ServerThread(serverController, socket);
-//            switch (readLine){
-//                case Request.LOGIN -> {
-//                    System.out.println("người dùng đăng nhập");
-//                    serverThread.DangNhap();
-//                }
-//                case Request.SIGNUP -> {
-//                    System.out.println("người dùng đăng ký");
-//                    serverThread.DangKy();
-//                }
-//                case Request.SignOff -> {
-//                    System.out.println("Nggười dùng đăng xuất");
-//                    serverThread.DangXuat();
-//                }
-//                case Request.GetAccountName -> {
-//                    System.out.println("Người dùng tìm người");
-//                    serverThread.GetUser() ;
-//                }
-//                case Request.ChangePassword -> {
-//                    System.out.println("Người dùng đổi mật khẩu");
-//                    serverThread.ThayDoiMatKhau();
-//                }
-//            }
-//        }catch (Exception e){
-//            e.printStackTrace();
-//        }
+        try{
+            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+            String readLine = bufferedReader.readLine();
+            ServerThread serverThread = new ServerThread(serverController, socket);
+            switch (readLine){
+                case Request.LOGIN -> {
+                    System.out.println("người dùng đăng nhập");
+                    serverThread.DangNhap();
+                }
+                case Request.SIGNUP -> {
+                    System.out.println("người dùng đăng ký");
+                    serverThread.DangKy();
+                }
+                case Request.SignOff -> {
+                    System.out.println("Nggười dùng đăng xuất");
+                    serverThread.DangXuat();
+                }
+                case Request.GetAccountName -> {
+                    System.out.println("Người dùng tìm người");
+                    serverThread.GetUser() ;
+                }
+                case Request.ChangePassword -> {
+                    System.out.println("Người dùng đổi mật khẩu");
+                    serverThread.ThayDoiMatKhau();
+                }
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
 }

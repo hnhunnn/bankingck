@@ -5,8 +5,51 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c9499d26-08bc-491a-b95b-6a9998cf67d9" name="Changes" comment="demo">
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/bankingck/Client/Controller/Client.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/bankingck/Client/Controller/ClientCore.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/bankingck/Client/Controller/LoginCallBack.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/bankingck/Client/Controller/ScreenController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Picture/892b2787f2b3be46aa283fe82fc76839.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Picture/cancel.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Picture/card-payment.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Picture/checked.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Picture/close-eye.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Picture/down.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Picture/error.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Picture/home.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Picture/key1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Picture/left-arrow-1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Picture/password.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Picture/password_3.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Picture/privacy.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Picture/receipt.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Picture/request.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Picture/right-arrow.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Picture/screen.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Picture/smartphone.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Picture/touch-screen.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Picture/tranfer.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Picture/up-arrow1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Picture/user.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Picture/visible-opened-eye-interface-option.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Picture/warning1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/com/example/bankingck/MainScreen.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/bankingck/Client/Controller/SignInController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/bankingck/Client/Controller/SignInController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/bankingck/Client/Controller/SignUpController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/bankingck/Client/Controller/SignUpController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/bankingck/Control.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/bankingck/Control.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/bankingck/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/bankingck/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/bankingck/Model/DAO/ConnectDB.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/bankingck/Model/DAO/ConnectDB.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/bankingck/Model/DAO/UserDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/bankingck/Model/DAO/UserDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/bankingck/Model/Request.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/bankingck/Model/Request.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/bankingck/Model/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/bankingck/Model/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/bankingck/Server/Controller/ServerController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/bankingck/Server/Controller/ServerController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/bankingck/Server/Controller/ServerThread.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/bankingck/Server/Controller/ServerThread.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/bankingck/Server/Controller/server.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/bankingck/Server/Controller/server.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/module-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/module-info.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/bankingck/SignUP.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/bankingck/SignUP.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/bankingck/hello-view.fxml" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -16,6 +59,7 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
+        <option value="Interface" />
         <option value="FxmlFile" />
         <option value="Class" />
       </list>
@@ -45,9 +89,9 @@
     &quot;Application.Control.executor&quot;: &quot;Run&quot;,
     &quot;Application.Main.executor&quot;: &quot;Run&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/cellh/Documents/Zalo Received Files/BankingCK&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/cellh/IdeaProjects/BankingCK/src/main/resources/Picture&quot;,
     &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
     &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
     &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
@@ -56,6 +100,7 @@
 }</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\cellh\IdeaProjects\BankingCK\src\main\resources\Picture" />
       <recent name="C:\Users\cellh\Documents\Zalo Received Files\BankingCK\src\main\resources\Picture" />
       <recent name="C:\Users\cellh\Documents\Zalo Received Files\BankingCK\src\main\resources\com\example\bankingck\Picture" />
       <recent name="C:\Users\cellh\Documents\Zalo Received Files\BankingCK\src\main\java\com\example\bankingck\Server\Controller\Picture" />
@@ -68,7 +113,7 @@
       <recent name="com.example.bankingck" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.Control">
+  <component name="RunManager" selected="Application.Main">
     <configuration name="Control" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.example.bankingck.Control" />
       <module name="BankingCK" />
@@ -97,8 +142,8 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.Control" />
         <item itemvalue="Application.Main" />
+        <item itemvalue="Application.Control" />
       </list>
     </recent_temporary>
   </component>

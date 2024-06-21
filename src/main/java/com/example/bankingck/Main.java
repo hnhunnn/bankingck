@@ -1,6 +1,6 @@
 package com.example.bankingck;
 
-//import com.example.bankingck.Client.Controller.User_loginController;
+import com.example.bankingck.Client.Controller.SignInController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -15,9 +15,6 @@ public class Main extends Application {
     public void start(Stage stage) throws IOException {
         FXMLLoader loader = new FXMLLoader(Main.class.getResource("SignIN.fxml"));
         Parent root = loader.load() ;
-
-//        User_loginController controller = loader.getController() ;
-//        controller.setPrevStage(stage); // Cung cấp stage chính cho controller
 
         Scene scene = new Scene(root) ;
         stage.setScene(scene);

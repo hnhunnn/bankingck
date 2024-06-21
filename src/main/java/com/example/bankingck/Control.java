@@ -11,7 +11,7 @@ public class Control extends Application {
     @Override
     public void start(Stage stage) {
         try {
-            FXMLLoader fxmlLoader = new FXMLLoader(Control.class.getResource("SignIN.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(Control.class.getResource("Server.fxml"));
             Scene scene = new Scene(fxmlLoader.load(), 576, 473);
             stage.setScene(scene);
             stage.show();
@@ -24,4 +24,3 @@ public class Control extends Application {
         launch(args);
     }
 }
-

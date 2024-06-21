@@ -1,5 +1,4 @@
 package com.example.bankingck.Model;
-
 public class User {
     private int ID ;
     private String Ho;
