@@ -102,25 +102,23 @@ public class SignInController implements Initializable, LoginCallBack {
     }
 
     private void changeScene() {
-        try {
-            FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("SignUp.fxml"));
-            Parent root = fxmlLoader.load();
+        Runnable scene = new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("SignUp.fxml"));
+                    Parent root = fxmlLoader.load();
 
-            SignUpController signUpController = fxmlLoader.getController();
-            signUpController.setPrevStage(new Stage());
-
-            Stage signUpStage = new Stage();
-            signUpStage.setScene(new Scene(root));
-            signUpController.setPrevStage(signUpStage);
-
-            signUpStage.show();
-            if (prevStage != null) {
-                prevStage.close();
+                    SignUpController signUpController = fxmlLoader.getController();
+                    signUpController.setPreSignInStage(prevStage);
+                    prevStage.getScene().setRoot(root);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    System.out.println("Error loading Sign Up screen");
+                }
             }
-        } catch (IOException e) {
-            e.printStackTrace();
-            System.out.println("Error loading Sign Up screen");
-        }
+        };
+        new Thread(scene).start();
     }
 
     private void changeToMainScene() {
@@ -129,16 +127,12 @@ public class SignInController implements Initializable, LoginCallBack {
             Parent root = fxmlLoader.load();
 
             ScreenController screenController = fxmlLoader.getController();
-            screenController.setPrevStage(new Stage());
+            screenController.setPrevStage(prevStage);
             screenController.setUserID(SDT_text.getText());
 
-            Stage mainStage = new Stage();
-            mainStage.setScene(new Scene(root));
-            mainStage.show();
-
-            if (prevStage != null) {
-                prevStage.close();
-            }
+            Scene scene2 = new Scene(root, 340, 564);
+            prevStage.setScene(scene2);
+            prevStage.show();
         } catch (IOException e) {
             e.printStackTrace();
             System.out.println("Error loading Main Screen");

@@ -27,6 +27,10 @@ import com.example.bankingck.Model.User;
 import java.math.BigDecimal;
 import java.net.URL;
 import java.text.DecimalFormat;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -57,6 +61,7 @@ public class ScreenController implements Initializable,LoginCallBack, Screen_Int
     @FXML private Label user_SDT_2;
     @FXML private Label user_name_2;
     @FXML private Label pass_check;
+    @FXML private Label soTienChuyen;
 
     @FXML private Button user_Home;
     @FXML private Button dangXuat;
@@ -71,9 +76,11 @@ public class ScreenController implements Initializable,LoginCallBack, Screen_Int
     @FXML private Button Move_back_1;
     @FXML private Button Move_back_2;
     @FXML private Button Move_back_3;
+    @FXML private Button Move_back_4 ;
     @FXML private Button Home_button_1;
     @FXML private Button Home_button_2;
     @FXML private Button Change_pass_continue;
+    @FXML private Button CT_chuyentien;
 
     @FXML private ImageView close_eye_1;
     @FXML private ImageView close_eye_2;
@@ -94,6 +101,8 @@ public class ScreenController implements Initializable,LoginCallBack, Screen_Int
     @FXML private TextField pass_text_1;
     @FXML private TextField pass_text_2;
     @FXML private TextField pass_text_3;
+    @FXML private PasswordField MaPin;
+
 
     @FXML private PasswordField password_1;
     @FXML private PasswordField password_2;
@@ -121,6 +130,8 @@ public class ScreenController implements Initializable,LoginCallBack, Screen_Int
     private boolean isChange2 = false;
     private boolean isChange3 = false;
     private boolean isChange4 = false;
+    private boolean isChange5 = false;
+
     private Stage prevStage;
     private String Password1;
     private String Password2;
@@ -275,6 +286,7 @@ public class ScreenController implements Initializable,LoginCallBack, Screen_Int
                 slidePane(chuyen_tien_sreen1,0);
                 slidePane(home_screen,-564);
                 slidePane(chuyen_tien_sreen2,0);
+                slidePane(pin_Otp_1,0);
                 timer.schedule(new TimerTask() {
                     @Override
                     public void run() {
@@ -286,6 +298,7 @@ public class ScreenController implements Initializable,LoginCallBack, Screen_Int
                 slidePane(chuyen_tien_sreen1,+564);
                 slidePane(home_screen,0);
                 slidePane(chuyen_tien_sreen2,+564);
+                slidePane(pin_Otp_1,+564);
                 timer.schedule(new TimerTask() {
                     @Override
                     public void run() {
@@ -315,6 +328,8 @@ public class ScreenController implements Initializable,LoginCallBack, Screen_Int
                     xntt_TaiKhoanToi.setText(tenTaiKhoan);
                     SoTienBangChu_1.setText((convertNumberToWords(enteredMoney)+" Việt Nam Đồng").substring(0,1).toUpperCase() + (convertNumberToWords(enteredMoney)+" Việt Nam Đồng").substring(1));
                     NoiDungChuyenKhoan.setText(loiNhan);
+                    BigDecimal tien = new BigDecimal(So_Tien.getText());
+                    soTienChuyen.setText(ConvertBalance(tien));
                     xntt_SDT_TaiKhoanDi.setText(user_SDT_2.getText());
                     xntt_TaiKhoanDi.setText(user_name_2.getText());
                 } else {
@@ -332,12 +347,26 @@ public class ScreenController implements Initializable,LoginCallBack, Screen_Int
             if(isChange4){
                 slidePaneToX(chuyen_tien_sreen1,-340);
                 slidePaneToX(chuyen_tien_sreen2,0);
+                pin_Otp_1.setVisible(true);
             }else{
+                pin_Otp_1.setVisible(false);
                 slidePaneToX(chuyen_tien_sreen1,0);
                 slidePaneToX(chuyen_tien_sreen2,+340);
             }
         });
         isChange4 =!isChange4;
+    }
+    private void ManHinhDoi4(){
+        Platform.runLater(() -> {
+            if(isChange5){
+                slidePaneToX(chuyen_tien_sreen2,-340);
+                slidePaneToX(pin_Otp_1,0);
+            }else{
+                slidePaneToX(pin_Otp_1,+340);
+                slidePaneToX(chuyen_tien_sreen2,0);
+            }
+            isChange5 = !isChange5 ;
+        });
     }
     private void ManHinhChinh1() {
         Platform.runLater(() ->{
@@ -397,12 +426,39 @@ public class ScreenController implements Initializable,LoginCallBack, Screen_Int
 
         });
     }
+    private void ManHinhChinh3(){
+        Platform.runLater(() -> {
+            chuyen_tien_sreen1.setVisible(false);
+            chuyen_tien_sreen2.setVisible(false);
+            Timer timer = new Timer() ;
+            slidePane(home_screen,0);
+            slidePane(pin_Otp_1,+564);
+            timer.schedule(new TimerTask() {
+                @Override
+                public void run() {
+                    toggleButton.setVisible(true);
+                }
+            },200);
+            slidePane(chuyen_tien_sreen1,+564);
+            slidePane(chuyen_tien_sreen2,+564);
+            timer.schedule(new TimerTask() {
+                @Override
+                public void run() {
+                    slidePaneToX(chuyen_tien_sreen1,0);
+                    slidePaneToX(chuyen_tien_sreen2,+340);
+                    slidePaneToX(pin_Otp_1,+340);
+                    pin_Otp_1.setVisible(false);
+                    chuyen_tien_sreen2.setVisible(false);
+                }
+            },900);
+        });
+    }
 
     // Đăng xuất
     private void backToSignIn() {
         Platform.runLater(() -> {
             try {
-                FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("User.fxml"));
+                FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("SignIN.fxml"));
                 Parent root = fxmlLoader.load();
 
                 SignInController loginController = fxmlLoader.getController();
@@ -525,7 +581,10 @@ public class ScreenController implements Initializable,LoginCallBack, Screen_Int
         home_screen.setVisible(true);
         chuyen_tien_sreen1.setVisible(true);
         chuyen_tien_sreen2.setVisible(false);
+        pin_Otp_1.setVisible(false);
 
+        pin_Otp_1.setTranslateY(+564);
+        pin_Otp_1.setTranslateX(+340);
         expandedView.setTranslateY(-358);
         user_pane.setTranslateY(+564);
         change_Pass_Pane.setTranslateY(+564);
@@ -544,6 +603,12 @@ public class ScreenController implements Initializable,LoginCallBack, Screen_Int
         thaydoimatkhau.setOnAction(e -> ManHinhDoi());
         Move_back_1.setOnAction(e -> ManHinhDoi());
         ChuyenTien_button.setOnAction(e -> {ManHinhDoi2();chuyen_tien_sreen1.setVisible(true);});
+        Move_back_2.setOnAction(e -> {ManHinhDoi2();
+            So_Tai_Khoan.setText("");
+            Ten_Tai_Khoan.setText("");
+            So_Tien.setText("");
+            loi_nhan.setText("");
+        });
         Move_back_2.setOnAction(e -> ManHinhDoi2());
         Home_button_1.setOnAction(e -> ManHinhChinh1());
         Move_back_3.setOnAction(e -> ManHinhDoi3());
@@ -560,8 +625,22 @@ public class ScreenController implements Initializable,LoginCallBack, Screen_Int
         Change_pass_send.setOnAction(e -> {
             ChangsePassword();
         });
+        confirm_changeMoney.setOnAction(e -> {
+            ManHinhDoi4();
+        });
+        Move_back_4.setOnAction(e -> {
+            ManHinhDoi4();
+        });
+        CT_chuyentien.setOnAction(e -> {XacThucMaPIN();});
     }
-
+    private void XacThucMaPIN() {
+        new Thread(() -> {
+            String sdt = user_SDT_2.getText();
+            String PIN = MaPin.getText();
+            String request = Request.Check_Ma_PIN;
+            new ClientCore(sdt, PIN, request, (Screen_Interface) this);
+        }).start();
+    }
     private void ChangsePassword() {
         String user = user_SDT_1.getText() ;
         String account = password_1.isVisible()?password_1.getText():pass_text_2.getText() ;
@@ -700,9 +779,7 @@ public class ScreenController implements Initializable,LoginCallBack, Screen_Int
     }
 
     @Override
-    public void GetUseNameFail() {
-
-    }
+    public void GetUseNameFail() {}
 
     /*LoginBack*/
     @Override
@@ -738,5 +815,48 @@ public class ScreenController implements Initializable,LoginCallBack, Screen_Int
             alert.setHeaderText(null);
             alert.showAndWait();
         });
+    }
+
+    @Override
+    public void Xac_Thuc_True() {
+        Platform.runLater(() -> {
+            new Thread(() -> {
+                String sdt = user_SDT_2.getText();
+                BigDecimal tienChuyen = new BigDecimal(soTienChuyen.getText().replaceAll(",", ""));
+                String sdtNguoiGui = xntt_SDT_TaiKhoanToi.getText();
+                String loiNhan = loi_nhan.getText();
+                LocalDateTime now = LocalDateTime.now(ZoneId.systemDefault());
+
+                DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+                DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
+
+                String currentDate = now.format(dateFormatter);
+                String currentTime = now.format(timeFormatter);
+
+                String request = Request.CTien;
+                new ClientCore(currentDate, currentTime, sdt, sdtNguoiGui, tienChuyen, loiNhan, request, this);
+            }).start();
+        });
+    }
+
+    @Override
+    public void Xac_Thuc_False() {
+
+    }
+
+    @Override
+    public void Chuyen_Tien_Thanh_Cong() {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION) ;
+        alert.setContentText("Bạn đã chuyển tiền thành công");
+        alert.setHeaderText(null);
+        Optional<ButtonType> choose = alert.showAndWait() ;
+        if(choose.get() == ButtonType.OK){
+            ManHinhChinh3() ;
+        }
+    }
+
+    @Override
+    public void Chuyen_Tien_Khong_Thanh_Cong() {
+
     }
 }

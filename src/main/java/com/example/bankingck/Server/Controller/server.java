@@ -85,6 +85,14 @@ public class server {
                     System.out.println("Người dùng đổi mật khẩu");
                     serverThread.ThayDoiMatKhau();
                 }
+                case Request.Check_Ma_PIN -> {
+                    System.out.println("Người dùng check mã pin");
+                    serverThread.XacThuc();
+                }
+                case Request.CTien -> {
+                    System.out.println("Người dùng chuyển tiền");
+                    serverThread.ChuyenTien();
+                }
             }
         }catch (Exception e){
             e.printStackTrace();

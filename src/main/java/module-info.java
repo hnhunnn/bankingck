@@ -2,7 +2,7 @@ module com.example.bankingck {
     requires javafx.controls;
     requires javafx.fxml;
     requires java.sql;
-
+    requires jbcrypt;
 
 
     opens com.example.bankingck to javafx.fxml;

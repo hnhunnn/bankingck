@@ -11,7 +11,6 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
-<?import javafx.scene.layout.TilePane?>
 <?import javafx.scene.paint.Color?>
 <?import javafx.scene.text.Font?>
 
@@ -19,7 +18,7 @@
     <children>
         <AnchorPane layoutX="95.0" layoutY="97.0" prefHeight="529.3333333333334" prefWidth="340.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
-                <AnchorPane fx:id="home_screen" prefHeight="564.0" prefWidth="341.0">
+                <AnchorPane fx:id="home_screen" prefHeight="564.0" prefWidth="341.0" visible="false">
                     <children>
                         <AnchorPane fx:id="expandedView" layoutY="157.0" prefHeight="306.0" prefWidth="340.0" style="-fx-background-color: #83B4FF;" visible="false">
                             <children>
@@ -157,7 +156,7 @@
                                         <Font name="Berlin Sans FB" size="17.0" />
                                     </font>
                                 </Label>
-                                <Label fx:id="Name_user" alignment="CENTER" layoutX="1.0" layoutY="103.0" prefHeight="30.0" prefWidth="340.0" text="HO THI HONG NHUNG" textAlignment="CENTER" textFill="#83b4ff" wrapText="true">
+                                <Label fx:id="Name_user" alignment="CENTER" layoutX="1.0" layoutY="92.0" prefHeight="30.0" prefWidth="340.0" text="HO THI HONG NHUNG" textAlignment="CENTER" textFill="#83b4ff" wrapText="true">
                                     <font>
                                         <Font name="Consolas Bold" size="25.0" />
                                     </font>
@@ -668,6 +667,11 @@
                                 <Image url="@../../../Picture/cancel.png" />
                             </image>
                         </ImageView>
+                  <Label alignment="CENTER" layoutY="488.0" prefHeight="17.0" prefWidth="340.0" textFill="#679662">
+                     <font>
+                        <Font name="Calibri Bold" size="11.0" />
+                     </font>
+                  </Label>
                     </children>
                 </AnchorPane>
                 <AnchorPane fx:id="chuyen_tien_sreen2" prefHeight="564.0" prefWidth="340.0" visible="false">
@@ -706,7 +710,7 @@
                         </Label>
                         <Pane layoutX="18.0" layoutY="84.0" prefHeight="43.0" prefWidth="304.0">
                             <children>
-                                <Label alignment="CENTER" contentDisplay="RIGHT" layoutX="-6.0" layoutY="3.0" prefHeight="39.0" prefWidth="315.0" text="100,000,000" textAlignment="JUSTIFY">
+                                <Label fx:id="soTienChuyen" alignment="CENTER" contentDisplay="RIGHT" layoutX="-6.0" layoutY="3.0" prefHeight="39.0" prefWidth="315.0" text="100,000,000" textAlignment="JUSTIFY">
                                     <font>
                                         <Font name="Calibri Bold" size="30.0" />
                                     </font>
@@ -833,7 +837,7 @@
                     <children>
                         <Pane prefHeight="51.0" prefWidth="340.0" style="-fx-background-color: #F6DCAC;">
                             <children>
-                                <Button fx:id="Move_back_21" alignment="CENTER" contentDisplay="CENTER" graphicTextGap="0.0" layoutX="4.0" layoutY="11.0" mnemonicParsing="false" prefHeight="29.0" prefWidth="31.0" styleClass="Home">
+                                <Button fx:id="Move_back_4" alignment="CENTER" contentDisplay="CENTER" graphicTextGap="0.0" layoutX="4.0" layoutY="11.0" mnemonicParsing="false" prefHeight="29.0" prefWidth="31.0" styleClass="Home">
                                     <graphic>
                                         <ImageView fitHeight="14.0" fitWidth="14.0" pickOnBounds="true" preserveRatio="true">
                                             <image>
@@ -854,14 +858,14 @@
                                 <Font name="Arial" size="14.0" />
                             </font>
                         </Label>
-                        <PasswordField alignment="CENTER" layoutX="84.0" layoutY="198.0" prefHeight="25.0" prefWidth="171.0">
+                        <PasswordField fx:id="MaPin" alignment="CENTER" layoutX="84.0" layoutY="198.0" prefHeight="25.0" prefWidth="171.0">
                             <font>
                                 <Font size="14.0" />
                             </font>
                         </PasswordField>
                         <Pane layoutY="319.0" prefHeight="59.0" prefWidth="340.0" style="-fx-background-color: #ffffff;">
                             <children>
-                                <Button layoutX="16.0" layoutY="13.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="304.0" styleClass="send" text="Lấy mã OTP" textFill="WHITE">
+                                <Button fx:id="CT_chuyentien" layoutX="16.0" layoutY="13.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="304.0" styleClass="send" text="Xác nhận" textFill="WHITE">
                                     <font>
                                         <Font name="Calibri Bold" size="14.0" />
                                     </font>
@@ -872,7 +876,5 @@
                 </AnchorPane>
             </children>
         </AnchorPane>
-      <TilePane prefHeight="200.0" prefWidth="200.0" />
-      <TilePane prefHeight="200.0" prefWidth="200.0" />
     </children>
 </AnchorPane>

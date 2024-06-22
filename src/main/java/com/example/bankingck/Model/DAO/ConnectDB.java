@@ -11,6 +11,7 @@ public class ConnectDB {
         final String USER = "root" ;
         final String password = "123456";
         try{
+            Class.forName("com.mysql.cj.jdbc.Driver");
             connection = DriverManager.getConnection(DATABASE_NAME,USER,password) ;
         }catch (Exception e){
             e.printStackTrace();

@@ -84,6 +84,7 @@ public class UserDAO {
     }
     public static boolean CheckDuplicated(User user){
         try{
+            conn = ConnectDB.OpenConnection() ;
             PreparedStatement preparedStatement = conn.prepareStatement(
                     "SELECT * FROM `bank` WHERE `SDT` = ? ");
             preparedStatement.setString(1,user.getSDT());
@@ -162,7 +163,81 @@ public class UserDAO {
             e.printStackTrace();
         }
     }
+    public static boolean CheckMaPIN(String sdt, String PIN) {
+        try {
+            conn = ConnectDB.OpenConnection();
+            PreparedStatement preparedStatement = conn.prepareStatement(
+                    "SELECT `Pin` FROM `user` WHERE `SDT` = ?");
+            preparedStatement.setString(1, sdt);
+            ResultSet rs = preparedStatement.executeQuery();
+            if (rs.next()) {
+                String pin = rs.getString("Pin") ;
+                return pin.equals(PIN) ;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+    public static boolean ChuyenTien(String currentDate ,String currentTime, String sendSDT , String receiveSDT , BigDecimal amount,String loinhan){
+        try{
+            conn = ConnectDB.OpenConnection();
+            conn.setAutoCommit(false); // Tắt chế độ tự động xác nhận
 
+            // Trừ tiền từ tài khoản gửi
+            PreparedStatement psUpdateSender = conn.prepareStatement("UPDATE `user` SET `Balance` = `Balance` - ? WHERE `SDT` = ?");
+            psUpdateSender.setBigDecimal(1, amount);
+            psUpdateSender.setString(2, sendSDT);
+            int n = psUpdateSender.executeUpdate();
+
+            // Cộng tiền vào tài khoản nhận
+            PreparedStatement psUpdateReceiver = conn.prepareStatement("UPDATE `user` SET `Balance` = `Balance` + ? WHERE `SDT` = ?");
+            psUpdateReceiver.setBigDecimal(1, amount);
+            psUpdateReceiver.setString(2, receiveSDT);
+            int m = psUpdateReceiver.executeUpdate();
+            if(n == 1 && m == 1 ){
+                String giveSQL = "INSERT INTO transactions (date, time, from_SDT, to_SDT, description, amount, is_incoming) VALUES (?, ?, ?, ?, ?, ?, ?)";
+                String getSQL = "INSERT INTO transactions (date,time, from_SDT, to_SDT, description, amount, is_incoming) VALUES (?,?,?, ?, ?, ?, ?)" ;
+
+                PreparedStatement sender = conn.prepareStatement(giveSQL) ;
+                sender.setString(1, currentDate);
+                sender.setString(2, currentTime);
+                sender.setString(3,sendSDT);
+                sender.setString(4,receiveSDT);
+                sender.setString(5,loinhan);
+                sender.setBigDecimal(6,amount);
+                sender.setBoolean(7,false);
+                sender.executeUpdate() ;
+
+                PreparedStatement receiver = conn.prepareStatement(getSQL) ;
+                receiver.setString(1,currentDate);
+                receiver.setString(2, currentTime);
+                receiver.setString(3,sendSDT);
+                receiver.setString(4,receiveSDT);
+                receiver.setString(5,loinhan);
+                receiver.setBigDecimal(6,amount);
+                receiver.setBoolean(7,true);
+                receiver.executeUpdate();
+
+                conn.commit(); // Xác nhận giao dịch nếu không có lỗi
+                return true;
+            }else{
+                conn.rollback(); // Rollback transaction if update fails
+                return false;
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }finally {
+            try {
+                if (conn != null) {
+                    conn.setAutoCommit(true);
+                }
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+        }
+        return false ;
+    }
     public boolean checkIsBanned(User user){
         try{
             PreparedStatement preparedStatement = conn.prepareStatement("SELECT * FROM banned_user WHERE `SDT_User` =?");

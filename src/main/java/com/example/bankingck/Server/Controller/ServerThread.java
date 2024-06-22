@@ -6,6 +6,7 @@ import com.example.bankingck.Model.Request;
 import com.example.bankingck.Model.User;
 
 import java.io.*;
+import java.math.BigDecimal;
 import java.net.Socket;
 
 
@@ -79,7 +80,6 @@ public class ServerThread{
                         UserDAO.AddUser(new User(Ho, Ten, SDT, email, password));
                         toClient.write(Request.SignUpSuccess + "\n");
                         User user = UserDAO.verifyUser(new User(Ho,Ten,SDT,email,password)) ;
-
                         UserDAO.updateToOnline(user.getID());
                         controller.updateMessage("[" +user.getID()+"]"+user.getTen() +" : đang online");
                     }
@@ -169,6 +169,66 @@ public class ServerThread{
             }
         };
         new Thread(checkDuLieu).start();
+    }
+
+    public void XacThuc() {
+        checkStatus();
+        Runnable XacThucMaPin = new Runnable() {
+            @Override
+            public void run() {
+                try{
+                    BufferedReader fromClient = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+                    BufferedWriter toClient = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream())) ;
+
+                    String sdt = fromClient.readLine();
+                    String PIN = fromClient.readLine() ;
+
+                    boolean check = UserDAO.CheckMaPIN(sdt,PIN) ;
+                    if(check){
+                        toClient.write(Request.Ma_PIN_Success + "\n");
+                        toClient.flush();
+                    }else{
+                        toClient.write(Request.Ma_PIN_Fail + "\n");
+                        toClient.flush();
+                    }
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+            }
+        };
+        new Thread(XacThucMaPin).start();
+    }
+    public void ChuyenTien(){
+        checkStatus();
+        Runnable ChuyenTien = new Runnable() {
+            @Override
+            public void run() {
+                try{
+                    BufferedReader fromClient = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+                    BufferedWriter toClient = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream())) ;
+                    String currentDate = fromClient.readLine(); ;
+                    String currentTime = fromClient.readLine();
+                    String sdt = fromClient.readLine();
+                    String sdtNguoiDcChuyen = fromClient.readLine();
+                    String balance = fromClient.readLine() ;
+                    String loinhan = fromClient.readLine();
+                    BigDecimal tien = new BigDecimal(balance); // Chuyển đổi chuỗi thành BigDecimal
+
+                    System.out.println(sdt + " "+ sdtNguoiDcChuyen + " "+balance);
+                    boolean check = UserDAO.ChuyenTien(currentDate,currentTime, sdt,sdtNguoiDcChuyen,tien,loinhan) ;
+                    if(check){
+                        toClient.write(Request.CTien_Thanh_Cong+"\n");
+                        toClient.flush();
+                    }else{
+                        toClient.write(Request.CTien_ThatBai+"\n");
+                        toClient.flush();
+                    }
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+            }
+        };
+        new Thread(ChuyenTien).start();
     }
 
     public void checkStatus(){

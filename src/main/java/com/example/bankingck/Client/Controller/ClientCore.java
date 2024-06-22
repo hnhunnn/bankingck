@@ -8,6 +8,7 @@ import com.example.bankingck.Client.Controller.LoginCallBack;
 import com.example.bankingck.Model.Request;
 
 import java.io.*;
+import java.math.BigDecimal;
 import java.net.Socket;
 
 
@@ -39,9 +40,11 @@ public class ClientCore {
                 }
             }
         };
+        //đăng nhập sẽ được xử lý bởi đối tượng LoginCallBack và chạy trên luồng giao diện người dùng.
         new Thread(clientCore).start();
     }
-    /*Dăng ký*/ public ClientCore(String Ho, String Ten, String SDT, String gmail, String password, String request, LoginCallBack loginCallBack) {
+    /*Dăng ký*/
+    public ClientCore(String Ho, String Ten, String SDT, String gmail, String password, String request, LoginCallBack loginCallBack) {
         this.socket = Client.getConnect();
         this.loginCallBack = loginCallBack;
         System.out.println(Ho + " : " + Ten + " : " + SDT + " : " + gmail + " : " + password);
@@ -92,6 +95,35 @@ public class ClientCore {
         };
         new Thread(signOff).start();
     }
+    public ClientCore(String sdt , String PIN , String Request , Screen_Interface screenInterface){
+        this.socket = Client.getConnect() ;
+        this.screenInterface = screenInterface ;
+        Runnable checkMaPin = new Runnable() {
+            @Override
+            public void run() {
+                try{
+                    int n = Get_SendRequest(Request,socket) ;
+                    if( n == 1 ) {
+                        Send_Ma_PIN(sdt,PIN,socket);
+                        int check = getSuccess(socket) ;
+                        switch (check){
+                            case 9:
+                                screenInterface.Xac_Thuc_True();
+                                break;
+                            case 10 :
+                                screenInterface.Xac_Thuc_False();
+                                break;
+                        }
+                    }
+                }catch (Exception e){
+                    e.printStackTrace();
+                }finally {
+                    Client.getClose(socket);
+                }
+            }
+        };
+        new Thread(checkMaPin).start();
+    }
     public ClientCore(String SDT , String oldPassword , String newPassword , String request , Screen_Interface screenInterface){
         this.socket = Client.getConnect() ;
         this.screenInterface = screenInterface ;
@@ -116,7 +148,50 @@ public class ClientCore {
         };
         new Thread(change_password).start();
     }
+    public ClientCore(String currentDate , String currentTime , String sdt , String sdtNguoiGui , BigDecimal balance , String loiNhan, String request , Screen_Interface screenInterface){
+        this.socket = Client.getConnect() ;
+        this.screenInterface = screenInterface ;
+        Runnable ChuyenTien = new Runnable() {
+            @Override
+            public void run() {
+                try{
+                    int n = Get_SendRequest(request,socket) ;
+                    if( n == 1 ){
+                        Send_Balance_To_Update(currentDate,currentTime,sdt,sdtNguoiGui,loiNhan,balance,socket);
+                        int check = getSuccess(socket) ;
+                        switch (check){
+                            case 11:
+                                screenInterface.Chuyen_Tien_Thanh_Cong();
+                                break;
+                            case 12:
+                                screenInterface.Chuyen_Tien_Khong_Thanh_Cong();
+                                break;
+                        }
+                    }
+                }catch (Exception e){
+                    e.printStackTrace();
+                }finally {
+                    Client.getClose(socket);
+                }
+            }
+        };
+        new Thread(ChuyenTien).start();
+    }
 
+    public void Send_Balance_To_Update(String currentDate , String currentTime,String sdt , String sdtNGuoiGui , String loiNhan, BigDecimal balance , Socket socket) {
+        try{
+            BufferedWriter toClient = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream())) ;
+            toClient.write(currentDate + "\n");
+            toClient.write(currentTime + "\n");
+            toClient.write(sdt + "\n");
+            toClient.write(sdtNGuoiGui + "\n");
+            toClient.write(balance.toString() + "\n");
+            toClient.write(loiNhan + "\n");
+            toClient.flush();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
     public void SendRequest(String request, Socket socket) {
         try {
             BufferedWriter toServer = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
@@ -143,6 +218,7 @@ public class ClientCore {
             e.printStackTrace();
         }
     }
+
     public void Send_SignUp_Value(String Ho, String Ten, String SDT, String gmail, String password, Socket socket) {
         try {
             BufferedWriter toServer = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
@@ -221,6 +297,33 @@ public class ClientCore {
             e.printStackTrace();
         }
         return 0;
+    }
+    public int Get_SendRequest(String request , Socket socket) {
+        try{
+            BufferedWriter toServer = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream())) ;
+            BufferedReader fromServer = new BufferedReader(new InputStreamReader(socket.getInputStream())) ;
+            toServer.write(request+"\n");
+            toServer.flush();
+            String access = fromServer.readLine();
+            System.out.println(access);
+            if(access.equals(Request.OKE)){
+                return 1 ;
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return 0 ;
+    }
+    public void Send_Ma_PIN(String sdt , String PIN , Socket socket){
+        try {
+            BufferedWriter toServer = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
+            BufferedReader fromServer = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+            toServer.write(sdt+"\n");
+            toServer.write(PIN+"\n");
+            toServer.flush();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
     private Socket socket;
     private LoginCallBack loginCallBack ;
