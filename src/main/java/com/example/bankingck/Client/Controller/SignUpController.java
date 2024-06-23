@@ -21,6 +21,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import org.mindrot.jbcrypt.BCrypt;
 
 public class SignUpController implements Initializable, LoginCallBack {
     @FXML
@@ -65,7 +66,6 @@ public class SignUpController implements Initializable, LoginCallBack {
     private String password;
     private Stage preSignInStage;
     private String User_SDT;
-
 
     public void setPreSignInStage(Stage preSignInStage) {
         this.preSignInStage = preSignInStage;
@@ -196,6 +196,7 @@ public class SignUpController implements Initializable, LoginCallBack {
         }
         return true;
     }
+
     private void CreateAccount() {
         String Ho = Ho_text.getText().trim();
         String Ten = Ten_Text.getText().trim();
@@ -203,10 +204,13 @@ public class SignUpController implements Initializable, LoginCallBack {
         String email = Text_email.getText();
         String password = Pass_password.isVisible() ? Pass_password.getText() : Pass_text_password.getText();
 
-        // Log để kiểm tra giá trị đầu vào
-        System.out.println("Creating account with: Ho=" + Ho + ", Ten=" + Ten + ", SDT=" + SDT + ", Email=" + email + ", Password=" + password);
+        // Mã hóa mật khẩu
+        String hashedPassword = Pass.hashPassword(password);
 
-        new ClientCore(Ho, Ten, SDT, email, password, Request.SIGNUP, this);
+        // Log để kiểm tra giá trị đầu vào
+        System.out.println("Creating account with: Ho=" + Ho + ", Ten=" + Ten + ", SDT=" + SDT + ", Email=" + email + ", Password=" + hashedPassword);
+
+        new ClientCore(Ho, Ten, SDT, email, hashedPassword, Request.SIGNUP, this);
     }
 
     private void backToSignIn() {
@@ -241,7 +245,6 @@ public class SignUpController implements Initializable, LoginCallBack {
             ScreenController screenController = fxmlLoader.getController();
             screenController.setPrevStage(preSignInStage);
             screenController.setUserID(getUser_SDT());
-
 
             Scene scene2 = new Scene(root, 340, 564);
             preSignInStage.setScene(scene2);
@@ -287,4 +290,3 @@ public class SignUpController implements Initializable, LoginCallBack {
     public void Login(ActionEvent actionEvent) {
     }
 }
-
