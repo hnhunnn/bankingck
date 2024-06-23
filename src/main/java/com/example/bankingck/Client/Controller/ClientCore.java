@@ -70,6 +70,35 @@ public class ClientCore {
         };
         new Thread(clientCore).start();
     }
+    public ClientCore(Screen_Interface screenInterface , String sdt , String request){
+        this.socket = Client.getConnect() ;
+        this.screenInterface = screenInterface ;
+        Runnable updateBalance = new Runnable() {
+            @Override
+            public void run() {
+                try{
+                    SendRequest(request,socket);
+                    Send_SDT_To_ChangeBalance(sdt,socket);
+                    BufferedReader fromServer = new BufferedReader(new InputStreamReader(socket.getInputStream())) ;
+
+                    String check = fromServer.readLine() ;
+                    String balance = fromServer.readLine();
+                    BigDecimal tien = new BigDecimal(balance) ;
+                    if(check.equals(Request.Update_Balance_Success)) {
+                        System.out.println(Request.Update_Balance_Success);
+                        Platform.runLater(() -> {
+                            screenInterface.UpdateBalance(tien);
+                        });
+                    }
+                }catch (Exception e){
+                    e.printStackTrace();
+                }finally {
+                    Client.getClose(socket);
+                }
+            }
+        };
+        new Thread(updateBalance).start();
+    }
     public ClientCore(String SDT, String request,LoginCallBack loginCallBack){
         this.socket = Client.getConnect();
         this.loginCallBack = loginCallBack;
@@ -292,6 +321,10 @@ public class ClientCore {
                     return 4;
                 case Request.LastPasswordFail: return 5 ;
                 case Request.ChangePassSuccess: return 6 ;
+                case Request.Ma_PIN_Success: return 9 ;
+                case Request.Ma_PIN_Fail: return 10 ;
+                case Request.CTien_Thanh_Cong: return 11 ;
+                case Request.CTien_ThatBai: return 12;
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -321,6 +354,20 @@ public class ClientCore {
             toServer.write(sdt+"\n");
             toServer.write(PIN+"\n");
             toServer.flush();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+    public void Send_SDT_To_ChangeBalance(String sdt , Socket socket){
+        try{
+            BufferedReader fromClient = new BufferedReader(new InputStreamReader(socket.getInputStream())) ;
+            BufferedWriter toClient = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream())) ;
+            String access = fromClient.readLine();
+            System.out.println(access);
+            if(access.equals(Request.OKE)){
+                toClient.write(sdt+"\n");
+                toClient.flush();
+            }
         }catch (Exception e){
             e.printStackTrace();
         }

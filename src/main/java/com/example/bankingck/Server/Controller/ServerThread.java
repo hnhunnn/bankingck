@@ -230,6 +230,26 @@ public class ServerThread{
         };
         new Thread(ChuyenTien).start();
     }
+    public void DoiBalance(){
+        checkStatus();
+        Runnable doi = new Runnable() {
+            @Override
+            public void run() {
+                try{
+                    BufferedReader fromClient = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+                    BufferedWriter toClient = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
+                    String sdt = fromClient.readLine();
+                    String tien = String.valueOf(UserDAO.UpdateBalance(sdt));
+                    toClient.write(Request.Update_Balance_Success+"\n");
+                    toClient.write(tien + "\n");
+                    toClient.flush();
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+            }
+        } ;
+        new Thread(doi).start();
+    }
 
     public void checkStatus(){
         try{

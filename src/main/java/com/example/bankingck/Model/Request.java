@@ -27,6 +27,8 @@ public class Request {
     public static final String ChangePassword = "<Change-password>" ;
     public static final String ChangePassSuccess = "<Change-pass-success>";
     public static final String LastPasswordFail = "<Failure-last-password>";
+    public static final String Auto_Update_Balance = "<Update_Balance>" ;
+    public static final String Update_Balance_Success = "<Update_Balance-Success>" ;
 
 
 }

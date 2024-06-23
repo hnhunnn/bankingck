@@ -595,7 +595,10 @@ public class ScreenController implements Initializable,LoginCallBack, Screen_Int
         CheckFields();
     }
     private void setButtonActionS(){
-        toggleButton.setOnAction(e -> new Thread(()-> handleToggle()).start());
+        toggleButton.setOnAction(e -> {
+            AutoUpdateTheBalance();
+            new Thread(() -> handleToggle()).start();
+        });
         toggleButtonExpanded.setOnAction(e ->new Thread(()-> handleToggle()).start());
         User_Infor.setOnAction(e -> {newPane();user_pane.setVisible(true);});
         user_Home.setOnAction(e -> newPane());
@@ -841,22 +844,48 @@ public class ScreenController implements Initializable,LoginCallBack, Screen_Int
 
     @Override
     public void Xac_Thuc_False() {
-
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION) ;
+        alert.setHeaderText(null);
+        alert.setContentText("Bạn nhập mã pin sai");
+        alert.showAndWait();
     }
 
     @Override
     public void Chuyen_Tien_Thanh_Cong() {
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION) ;
-        alert.setContentText("Bạn đã chuyển tiền thành công");
-        alert.setHeaderText(null);
-        Optional<ButtonType> choose = alert.showAndWait() ;
-        if(choose.get() == ButtonType.OK){
-            ManHinhChinh3() ;
-        }
+        Platform.runLater(() -> {
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION) ;
+            alert.setContentText("Bạn đã chuyển tiền thành công");
+            alert.setHeaderText(null);
+            Optional<ButtonType> choose = alert.showAndWait() ;
+            if(choose.get() == ButtonType.OK){
+                So_Tai_Khoan.setText("");
+                Ten_Tai_Khoan.setText("");
+                So_Tien.setText("");
+                loi_nhan.setText("");
+                MaPin.setText("");
+                ManHinhChinh3() ;
+            }
+        });
     }
 
     @Override
     public void Chuyen_Tien_Khong_Thanh_Cong() {
-
+        Platform.runLater(() -> {
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION) ;
+            alert.setContentText("Bạn đã ko chuyển tiền thành công");
+            alert.setHeaderText(null);
+            alert.showAndWait();
+        });
     }
+
+    @Override
+    public void UpdateBalance(BigDecimal balance) {Platform.runLater(() -> {setBalance(balance);});}
+    public void setBalance(BigDecimal bigDecimal) {
+        Money1.setText(ConvertBalance(bigDecimal));
+        Money2.setText(ConvertBalance(bigDecimal));
+    }
+    public void AutoUpdateTheBalance() {
+        String sdt = user_SDT_1.getText();
+        String request = Request.Auto_Update_Balance;
+        new ClientCore(this, sdt, request);}
 }

@@ -93,6 +93,10 @@ public class server {
                     System.out.println("Người dùng chuyển tiền");
                     serverThread.ChuyenTien();
                 }
+                case Request.Auto_Update_Balance -> {
+                    System.out.println("Kiểm tra thay đổi");
+                    serverThread.DoiBalance();
+                }
             }
         }catch (Exception e){
             e.printStackTrace();

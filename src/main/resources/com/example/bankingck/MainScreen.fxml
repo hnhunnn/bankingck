@@ -833,7 +833,7 @@
                         </ImageView>
                     </graphic>
                 </Button>
-                <AnchorPane fx:id="pin_Otp_1" prefHeight="564.0" prefWidth="340.0" style="-fx-background-color: #eeeeee;" visible="false">
+                <AnchorPane fx:id="pin_Otp_1" prefHeight="564.0" prefWidth="340.0" style="-fx-background-color: #eeeeee;">
                     <children>
                         <Pane prefHeight="51.0" prefWidth="340.0" style="-fx-background-color: #F6DCAC;">
                             <children>
